@@ -54,9 +54,10 @@ void alarmArming() {
 
 void alarmArmed() {
 	printf("armed...\n");
+	delay(500);
 	if (digitalRead(BUTTON) == 0) {
 		alarmState = ALARM_OFF;
-	} else if (digitalRead(IR_CONTROL) == 0) {
+	} else if (digitalRead(IR_CONTROL) == 1) {
 		alarmState = ALARM_TRIGGERED;
 	}
 }
@@ -92,7 +93,7 @@ void alarmTriggered() {
 
 void alarmSounding() {
 	printf("sounding...\n");
-	ifttt("https://maker.ifttt.com/trigger/alarm_triggered/with/key/cW6MXkOBZ0uYrgbhnnck4B","mishild","214924385","Alarm triggered.");
+	ifttt("https://maker.ifttt.com/trigger/666/with/key/_A-qdtIfEaA8ZoeM3Fgkq","214106710","good game","gg");
 	double started = (double) time(NULL);
 	double current = (double) time(NULL);
 	double interval = 1;
