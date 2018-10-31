@@ -29,7 +29,8 @@ void setup() {
 }
 
 void alarmOff() {
-	delay(200);
+	printf("off...\n");
+	delay(2000);
 	digitalWrite(BLUE_LED, HIGH);
 	digitalWrite(RED_LED, LOW);
 	digitalWrite(BUZZER, LOW);
@@ -40,6 +41,7 @@ void alarmOff() {
 }
 
 void alarmArming() {
+	delay(1000);
 	int i = 0;
 	while (i < 10) {
 		digitalWrite(BLUE_LED, HIGH);
@@ -64,31 +66,22 @@ void alarmArmed() {
 
 void alarmTriggered() {
 	printf("triggered...\n");
-	double previous = (double) time(NULL);
-	double finished = (double) time(NULL) + 10;
-	double current = (double) time(NULL);
-	double interval = 2;
-	int ledsOn = 1;
-	while(current <= finished) {
-		if (digitalRead(BUTTON) == 0) {
-			alarmState = ALARM_OFF;
-			break;
-		}
-		if (current - previous > interval) {
-			if (ledsOn == 1) {
-				digitalWrite(RED_LED, HIGH);
-				digitalWrite(BLUE_LED, HIGH);
-				ledsOn = 0;
-			} else {
-				digitalWrite(RED_LED, LOW);
-				digitalWrite(BLUE_LED, LOW);
-				ledsOn = 1;
-			}
-			previous = current;
-		}
-		current = (double) time(NULL);
+	delay(200);
+	int i = 0;
+	while (i < 5 && digitalRead(BUTTON) == 1 ){
+		digitalWrite(RED_LED, HIGH);
+		digitalWrite(BLUE_LED, HIGH);
+		delay(1000);
+		digitalWrite(RED_LED, LOW);
+		digitalWrite(BLUE_LED, LOW);
+		delay(1000);
+		i++;
 	}
+	if (digitalRead(BUTTON) == 0){
+	alarmState = ALARM_OFF;
+	} else  {
 	alarmState = ALARM_SOUNDING;
+	}
 }
 
 void alarmSounding() {
